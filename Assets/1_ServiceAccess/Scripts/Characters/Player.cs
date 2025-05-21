@@ -16,5 +16,11 @@ namespace Excercise1
                                              Mathf.Sin(Time.time * frequency) * amplitude,
                                              transform.position.z);
         }
+
+        private void Awake()
+        {
+            ServiceLocator.RegistrerCharacter(this);
+
+        }
     }
 }
