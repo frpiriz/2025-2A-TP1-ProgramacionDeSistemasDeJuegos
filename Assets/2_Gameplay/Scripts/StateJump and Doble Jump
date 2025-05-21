@@ -1,0 +1,42 @@
+using PlasticPipe.PlasticProtocol.Messages;
+using Unity.IO.LowLevel.Unsafe;
+using UnityEngine;
+
+namespace Gameplay
+{
+    public class JumpState : StateCharacter
+    {
+
+       private  bool hasDoubleJumped = false;
+
+
+        public JumpState(Character character) : base(character) { }
+
+
+
+        public override void Enter()
+        {
+            character.StartCoroutine(character.Jump());
+
+        }
+        public override void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space) && !hasDoubleJumped)
+            {
+                hasDoubleJumped = true;
+                character.StartCoroutine(character.Jump());
+            }
+            if(Input.GetKeyDown(KeyCode.Space) && !hasDoubleJumped)
+            {
+                character.StartCoroutine(character.Jump());
+            }
+
+            
+
+            
+        }
+    }
+
+    }
+    
+
