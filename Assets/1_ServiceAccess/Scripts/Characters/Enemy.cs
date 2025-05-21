@@ -9,7 +9,21 @@ namespace Excercise1
         [SerializeField] private string playerId = "Player";
         private ICharacter _player;
         private string _logTag;
+        private Transform target;
 
+
+
+        private void Start()
+        {
+            var character = ServiceLocator.GetCharacter();
+            if(character != null )
+            {
+                target= character.transform;
+
+            }
+        }
+
+      
         private void Reset()
             => id = nameof(Enemy);
 
@@ -26,6 +40,11 @@ namespace Excercise1
 
         private void Update()
         {
+
+            if(target != null)
+            {
+                transform.position=Vector3.MoveTowards(transform.position, target.position,speed * Time.deltaTime);
+            }
             if (_player == null)
                 return;
             var direction = _player.transform.position - transform.position;
