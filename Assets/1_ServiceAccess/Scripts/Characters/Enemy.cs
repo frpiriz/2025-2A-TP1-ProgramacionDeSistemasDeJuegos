@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Excercise1
@@ -6,49 +5,34 @@ namespace Excercise1
     public class Enemy : Character
     {
         [SerializeField] private float speed = 5;
-        [SerializeField] private string playerId = "Player";
-        private ICharacter _player;
-        private string _logTag;
         private Transform target;
+        private string _logTag;
 
-
-
-        private void Start()
-        {
-            var character = ServiceLocator.GetCharacter();
-            if(character != null )
-            {
-                target= character.transform;
-
-            }
-        }
-
-      
         private void Reset()
             => id = nameof(Enemy);
 
         private void Awake()
             => _logTag = $"{name}({nameof(Enemy).Colored("#555555")}):";
 
-        protected override void OnEnable()
+        private void OnEnable()
         {
-            base.OnEnable();
-            //TODO: Get the reference to the player.
-            if (_player == null)
+            var character = ServiceLocator.GetCharacter();
+            if (character != null)
+            {
+                target = character.transform;
+            }
+            else
+            {
                 Debug.LogError($"{_logTag} Player not found!");
+            }
         }
 
         private void Update()
         {
-
-            if(target != null)
+            if (target != null)
             {
-                transform.position=Vector3.MoveTowards(transform.position, target.position,speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
             }
-            if (_player == null)
-                return;
-            var direction = _player.transform.position - transform.position;
-            transform.position += direction.normalized * (speed * Time.deltaTime);
         }
     }
 }
