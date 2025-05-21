@@ -1,0 +1,23 @@
+using UnityEngine;
+
+namespace Gameplay
+{
+    public abstract class StateCharacter
+    {
+       protected Character character;
+        public StateCharacter(Character character)
+        {
+            this.character = character;
+
+        }
+
+        public virtual void Enter()
+        {
+
+        }
+        public virtual void Exit() { }
+        public virtual void Update() { }
+        public virtual void FixedUpdate() { }
+        public virtual void OnJump() { }
+    }
+}
